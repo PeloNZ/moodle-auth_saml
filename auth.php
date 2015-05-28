@@ -280,7 +280,7 @@ class auth_plugin_saml extends auth_plugin_base {
         }
         if ($roles = get_roles_with_capability('moodle/legacy:coursecreator', CAP_ALLOW)) {
             $creatorrole = array_shift($roles);
-            $systemcontext = get_context_instance(CONTEXT_SYSTEM);
+            $systemcontext = context_system::instance();
             if ($iscreator) {
             	role_assign($creatorrole->id, $user->id, 0, $systemcontext->id, 0, 0, 0, 'saml');
             }

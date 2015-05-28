@@ -370,7 +370,7 @@ function auth_saml_authenticate_user_login($username, $password) {
  */
 function auth_saml_qualified_me() {
 
-    global $CFG;
+    global $CFG, $OUTPUT;
 
     if (!empty($CFG->wwwroot)) {
         $url = parse_url($CFG->wwwroot);
@@ -387,7 +387,7 @@ function auth_saml_qualified_me() {
     } else if (!empty($_ENV['HTTP_HOST'])) {
         $hostname = $_ENV['HTTP_HOST'];
     } else {
-        notify('Warning: could not find the name of this server!');
+        $OUTPUT->notification('Warning: could not find the name of this server!');
         return false;
     }
 
@@ -425,6 +425,8 @@ function auth_saml_qualified_me() {
  */
  function auth_saml_me() {
 
+     global $OUTPUT;
+
     if (!empty($_SERVER['REQUEST_URI'])) {
         return $_SERVER['REQUEST_URI'];
 
@@ -447,7 +449,7 @@ function auth_saml_qualified_me() {
         return $_SERVER['URL'];
 
     } else {
-        notify('Warning: Could not find any of these web server variables: $REQUEST_URI, $PHP_SELF, $SCRIPT_NAME or $URL');
+        $OUTPUT->notification('Warning: Could not find any of these web server variables: $REQUEST_URI, $PHP_SELF, $SCRIPT_NAME or $URL');
         return false;
     }
 }
